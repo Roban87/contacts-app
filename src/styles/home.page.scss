@@ -1,0 +1,19 @@
+.home-screen {
+    .header-spacer {
+        height: 96px;
+    }
+
+    .header {
+        height: 96px;
+
+        .row {
+            height: 96px;
+        }
+    }
+
+    .content-wrapper {
+        padding: 0 24px;
+        width: 768px;
+        max-width: 768px;
+    }
+}

@@ -1,0 +1,59 @@
+.button {
+    border: unset;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #FFF;
+
+    &.primary {
+        background-color: #282828;
+
+        &:hover {
+            background-color: #2D2D2D;
+        }
+
+        &:active {
+            background-color: #323232;
+        }
+    }
+
+    &.secondary {
+        background-color: #141414;
+
+        &:hover {
+            background-color: #191919;
+        }
+
+        &:active {
+            background-color: #1E1E1E;
+        }
+    }
+
+    &.special {
+        border-radius: 1000px;
+        border: 1px solid #3C3C3C;
+        background: linear-gradient(180deg, rgba(40, 40, 40, 0.70) 0%, #282828 100%), #141414;
+
+        &:hover {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.04) 100%), linear-gradient(180deg, rgba(40, 40, 40, 0.70) 0%, #282828 100%), #141414;
+        }
+
+        &:active {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.04) 100%), linear-gradient(180deg, rgba(40, 40, 40, 0.70) 0%, #282828 100%), #141414;
+        }
+    }
+
+    &.only-icon {
+        padding: 8px
+    }
+
+    &.only-title {
+        padding: 8px 16px;
+    }
+
+    &.with-icon {
+        padding: 8px 16px 8px 12px;
+    }
+}

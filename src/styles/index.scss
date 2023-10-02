@@ -1,0 +1,36 @@
+@import './globals';
+@import './libs/functions';
+@import './variables';
+
+// GENERATORS
+@import './generators/flex';
+@import './generators/grid';
+@import './generators/color';
+@import './generators/helpers';
+@import './generators/helpers';
+
+// MISC
+@import '../../public/fonts/icon-set/contact-app-icon-set';
+
+// COMPONENTS
+@import './components/button';
+@import './components/profile-pic';
+@import './components/contact-list-item';
+
+// PAGES
+@import 'home.page';
+
+@include generate-helper((
+    breakpoints: $grid-breakpoints,
+    spacers: $spacers,
+));
+@include generate-flex((breakpoints: $grid-breakpoints));
+@include generate-grid((
+    grid: (
+        columns: $grid-columns,
+        gutter: $grid-gutter,
+        breakpoints: $grid-breakpoints,
+        container: $grid-container
+    )
+));
+@include generate-color((colors: $colors));

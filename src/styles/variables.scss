@@ -1,0 +1,56 @@
+$grid-gutter: 16px;
+$grid-columns: 24;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+$grid-container: (
+    sm: map-get($grid-breakpoints, 'sm') - $grid-gutter,
+    md: map-get($grid-breakpoints, 'md') - $grid-gutter,
+    lg: map-get($grid-breakpoints, 'lg') - $grid-gutter,
+    xl: map-get($grid-breakpoints, 'xl') - $grid-gutter,
+);
+
+$spacers: (
+    0: 0,
+    1: .25rem,
+    2: .5rem,
+    3: .75rem,
+    4: 1rem,
+    5: 1.25rem,
+    6: 1.5rem,
+    7: 2rem,
+    8: 3rem,
+    9: 4rem,
+    10: 6rem,
+);
+
+$colors: (
+    gray: (
+        100: #141414,
+        90: #191919,
+        80: #1E1E1E,
+        70: #232323,
+        60: #282828,
+        50: #2D2D2D,
+        40: #323232,
+        30: #373737,
+        20: #3C3C3C,
+        10: #414141,
+    ),
+    text: (
+        primary: #FFFFFF,
+        secondary: rgba(255, 255, 255, 0.56),
+        disabled: rgba(255, 255, 255, 0.32),
+    ),
+    additional: (
+        error: #FF4545,
+        warning: #FF8731,
+        success: #40AA29
+    ),
+);

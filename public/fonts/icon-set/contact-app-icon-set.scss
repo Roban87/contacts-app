@@ -27,6 +27,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.size-20 {
+  font-size: 20px;
+}
+
+.size-24 {
+  font-size: 24px;
+}
+
 .delete {
   &:before {
     content: $delete;

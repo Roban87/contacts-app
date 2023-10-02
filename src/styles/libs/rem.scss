@@ -1,6 +1,0 @@
-$defaultRemSize: 16px !default;
-
-@function calculateRem($size) {
-    $remSize: $size / $defaultRemSize;
-    @return $remSize;
-}

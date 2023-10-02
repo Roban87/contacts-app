@@ -1,0 +1,11 @@
+.contact-list-item {
+    .contact-control {
+        display: none;
+    }
+
+    &:hover {
+        .contact-control {
+            display: flex;
+        }
+    }
+}

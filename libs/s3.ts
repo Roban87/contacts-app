@@ -12,7 +12,7 @@ const s3 = new S3({
     awsSecretAccessKey,
 })
 
-export async function uploadFile(file) {
+export async function s3Upload(file) {
     const fileStream = fs.createReadStream(file.path);
 
     const uploadParams = new PutObjectCommand({
@@ -24,11 +24,11 @@ export async function uploadFile(file) {
     return s3.send(uploadParams);
 }
 
-export async function downloadFile(fileKey) {
+export async function s3Download(fileKey) {
     const downloadParams = new GetObjectCommand({
         Bucket: bucketName,
         Key: fileKey,
     });
 
     return s3.send(downloadParams).createReadStream();
-};
+}
