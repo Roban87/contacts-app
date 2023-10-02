@@ -1,0 +1,303 @@
+@import "../libs/functions";
+
+@mixin generate-helper($config) {
+    $breakpoints: map-get-deep($config, 'breakpoints');
+    $spacers: map-get-deep($config, 'spacers');
+    $displays: none, inline, inherit, inline-block, block, table, table-row, table-cell, flex, inline-flex;
+    $positions: relative, absolute, fixed, static;
+    $overflows: hidden, auto, visible, scroll;
+
+    // DISPLAY
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            @each $value in $displays {
+                .display#{$infix}-#{$value} {
+                    display: $value !important;
+                }
+            }
+        }
+    }
+
+    // FLOAT
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            .float#{$infix}-left {
+                float: left !important;
+            }
+            .float#{$infix}-right {
+                float: right !important;
+            }
+            .float#{$infix}-none {
+                float: none !important;
+            }
+        }
+    }
+
+    // POSITION
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            @each $value in $positions {
+                .position#{$infix}-#{$value} {
+                    position: $value !important;
+                }
+            }
+        }
+    }
+
+    // Absolute & Fixed Helpers
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            @each $size, $length in $spacers {
+                .fixed#{$infix}-top-#{$size} {
+                    top: $length;
+                    position: fixed;
+                }
+
+                .fixed#{$infix}-bottom-#{$size} {
+                    bottom: $length;
+                    position: fixed;
+                }
+
+                .fixed#{$infix}-left-#{$size} {
+                    left: $length;
+                    position: fixed;
+                }
+
+                .fixed#{$infix}-right-#{$size} {
+                    right: $length;
+                    position: fixed;
+                }
+
+                .fixed#{$infix}-x-#{$size} {
+                    left: $length;
+                    right: $length;
+                    position: fixed;
+                }
+
+                .fixed#{$infix}-y-#{$size} {
+                    top: $length;
+                    bottom: $length;
+                    position: fixed;
+                }
+
+                .fixed#{$infix}-#{$size} {
+                    @extend .fixed#{$infix}-right-#{$size};
+                    @extend .fixed#{$infix}-left-#{$size};
+                    @extend .fixed#{$infix}-top-#{$size};
+                    @extend .fixed#{$infix}-bottom-#{$size};
+                }
+
+                .absolute#{$infix}-top-#{$size} {
+                    top: $length;
+                    position: absolute;
+                }
+
+                .absolute#{$infix}-bottom-#{$size} {
+                    bottom: $length;
+                    position: absolute;
+                }
+
+                .absolute#{$infix}-left-#{$size} {
+                    left: $length;
+                    position: absolute;
+                }
+
+                .absolute#{$infix}-right-#{$size} {
+                    right: $length;
+                    position: absolute;
+                }
+
+                .absolute#{$infix}-y-#{$size} {
+                    top: $length;
+                    bottom: $length;
+                    position: absolute;
+                }
+
+                .absolute#{$infix}-#{$size} {
+                    @extend .absolute#{$infix}-right-#{$size};
+                    @extend .absolute#{$infix}-left-#{$size};
+                    @extend .absolute#{$infix}-top-#{$size};
+                    @extend .absolute#{$infix}-bottom-#{$size};
+                }
+            }
+        }
+    }
+
+    // Paddings & Margins
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            @each $prop, $abbrev in (margin: m, padding: p) {
+                @each $size, $length in $spacers {
+                    .#{$abbrev}#{$infix}-#{$size} {
+                        #{$prop}: $length !important;
+                    }
+                    .#{$abbrev}t#{$infix}-#{$size},
+                    .#{$abbrev}y#{$infix}-#{$size} {
+                        #{$prop}-top: $length !important;
+                    }
+                    .#{$abbrev}r#{$infix}-#{$size},
+                    .#{$abbrev}x#{$infix}-#{$size} {
+                        #{$prop}-right: $length !important;
+                    }
+                    .#{$abbrev}b#{$infix}-#{$size},
+                    .#{$abbrev}y#{$infix}-#{$size} {
+                        #{$prop}-bottom: $length !important;
+                    }
+                    .#{$abbrev}l#{$infix}-#{$size},
+                    .#{$abbrev}x#{$infix}-#{$size} {
+                        #{$prop}-left: $length !important;
+                    }
+                }
+            }
+
+            // Some special margin utils
+
+            .m#{$infix}-auto {
+                margin: auto !important;
+            }
+            .mt#{$infix}-auto,
+            .my#{$infix}-auto {
+                margin-top: auto !important;
+            }
+            .mr#{$infix}-auto,
+            .mx#{$infix}-auto {
+                margin-right: auto !important;
+            }
+            .mb#{$infix}-auto,
+            .my#{$infix}-auto {
+                margin-bottom: auto !important;
+            }
+            .ml#{$infix}-auto,
+            .mx#{$infix}-auto {
+                margin-left: auto !important;
+            }
+        }
+    }
+
+    // Overflow
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            @each $value in $overflows {
+                .overflow#{$infix}-#{$value} {
+                    overflow: $value !important;
+                }
+            }
+        }
+    }
+
+    // Height & Width
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            .w#{$infix}-100 {
+                width: 100% !important;
+            }
+            .vw#{$infix}-100 {
+                width: 100vw !important;
+            }
+            .max-w#{$infix}-100 {
+                max-width: 100% !important;
+            }
+            .min-w#{$infix}-100 {
+                min-width: 100% !important;
+            }
+            .max-vw#{$infix}-100 {
+                max-width: 100vw !important;
+            }
+            .min-vw#{$infix}-100 {
+                min-width: 100vw !important;
+            }
+            .h#{$infix}-100 {
+                height: 100% !important;
+            }
+            .vh#{$infix}-100 {
+                height: 100vh !important;
+            }
+            .max-h#{$infix}-100 {
+                max-height: 100% !important;
+            }
+            .min-h#{$infix}-100 {
+                min-height: 100% !important;
+            }
+            .max-vh#{$infix}-100 {
+                max-height: 100vh !important;
+            }
+            .min-vh#{$infix}-100 {
+                min-height: 100vh !important;
+            }
+
+            // Unset
+
+            .w#{$infix}-unset {
+                width: unset !important;
+            }
+            .vw#{$infix}-unset {
+                width: unset !important;
+            }
+            .max-w#{$infix}-unset {
+                max-width: unset !important;
+            }
+            .min-w#{$infix}-unset {
+                min-width: unset !important;
+            }
+            .max-vw#{$infix}-unset {
+                max-width: unset !important;
+            }
+            .min-vw#{$infix}-unset {
+                min-width: unset !important;
+            }
+            .h#{$infix}-unset {
+                height: unset !important;
+            }
+            .vh#{$infix}-unset {
+                height: unset !important;
+            }
+            .max-h#{$infix}-unset {
+                max-height: unset !important;
+            }
+            .min-h#{$infix}-unset {
+                min-height: unset !important;
+            }
+            .max-vh#{$infix}-unset {
+                max-height: unset !important;
+            }
+            .min-vh#{$infix}-unset {
+                min-height: unset !important;
+            }
+        }
+    }
+
+    @each $key, $breakpoint in map-keys($breakpoints) {
+        @include media-breakpoint-up($key, $breakpoints) {
+            $infix: breakpoint-infix($key, $breakpoints);
+
+            .opacity#{$infix}-0 {
+                opacity: 0 !important;
+            }
+
+            .opacity#{$infix}-1 {
+                opacity: 1 !important;
+            }
+        }
+    }
+}

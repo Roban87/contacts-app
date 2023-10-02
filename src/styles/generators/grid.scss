@@ -1,0 +1,39 @@
+@import "../libs/functions";
+
+@mixin generate-grid($config) {
+    $container-widths: map-get-deep($config, 'grid', 'container');
+    $breakpoints: map-get-deep($config, 'grid', 'breakpoints');
+    $columns: map-get-deep($config, 'grid', 'columns');
+    $gutter: map-get-deep($config, 'grid', 'gutter');
+
+    .container {
+        @include make-container($gutter);
+
+        @each $key, $breakpoint in $container-widths {
+            @include media-breakpoint-up($key, $breakpoints) {
+                max-width: $breakpoint;
+            }
+        }
+    }
+
+    .container-fluid {
+        @include make-container($gutter);
+    }
+
+    .row {
+        @include make-row($gutter);
+
+        .no-gutters {
+            margin-right: 0;
+            margin-left: 0;
+
+            > .col,
+            > [class*="col-"] {
+                padding-right: 0;
+                padding-left: 0;
+            }
+        }
+    }
+
+    @include make-grid-columns($columns, $gutter, $breakpoints);
+}

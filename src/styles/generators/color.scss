@@ -1,0 +1,51 @@
+@import "../libs/functions";
+
+@mixin generate-color($config) {
+    $defined-css-properties: (
+        (css-property: 'background-color', class-prefix: 'background-color'),
+        (css-property: 'color', class-prefix: 'color'),
+        (css-property: 'border-color', class-prefix: 'border-color')
+    );
+
+    $colors: map-get-deep($config, 'colors');
+
+    @each $property in $defined-css-properties {
+        @each $color-key, $variants in $colors {
+            @each $variant-key, $variant in $variants {
+                .#{map_get($property, 'class-prefix')}--#{$color-key}-#{$variant-key} {
+                    #{map_get($property, 'css-property')}: $variant !important;
+                }
+            }
+        }
+    }
+
+    @each $property in $defined-css-properties {
+        @each $color-key, $variants in $colors {
+            @each $variant-key, $variant in $variants {
+                .#{map_get($property, 'class-prefix')}--#{$color-key}-#{$variant-key}--hover:hover {
+                    #{map_get($property, 'css-property')}: $variant !important;
+                }
+            }
+        }
+    }
+
+    @each $property in $defined-css-properties {
+        @each $color-key, $variants in $colors {
+            @each $variant-key, $variant in $variants {
+                .#{map_get($property, 'class-prefix')}--#{$color-key}-#{$variant-key}--active:active {
+                    #{map_get($property, 'css-property')}: $variant !important;
+                }
+            }
+        }
+    }
+
+    @each $property in $defined-css-properties {
+        @each $color-key, $variants in $colors {
+            @each $variant-key, $variant in $variants {
+                .#{map_get($property, 'class-prefix')}--#{$color-key}-#{$variant-key}--focus:focus {
+                    #{map_get($property, 'css-property')}: $variant !important;
+                }
+            }
+        }
+    }
+}

@@ -10,12 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model contacts {
+model Contact {
    id Int @id @default(autoincrement())
    name String
-   phone String
-   email String @unique
-   image String
+   phone String?
+   email String? @unique
+   image String?
    createdAt DateTime @default(now())
    updatedAt DateTime @updatedAt
 }

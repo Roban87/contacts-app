@@ -1,0 +1,32 @@
+@function map-get-deep($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+    @return $map;
+}
+
+@function get-value($value, $else) {
+    @if ($value != null) {
+        @return $value;
+    } @else {
+        @return $else;
+    }
+}
+
+@function first($list) {
+    @return nth($list, 1);
+}
+
+@function last($list) {
+    @return nth($list, length($list));
+}
+
+@function create-font($s, $lh, $mb: 0, $weight: 300, $ff: "Courier New") {
+    @return (
+        font-size: $s,
+        line-height: $lh,
+        margin-bottom: $mb,
+        font-weight: $weight,
+        font-family: $ff
+    );
+}
