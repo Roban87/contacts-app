@@ -2,7 +2,7 @@
 
 Application for keeping all your contacts in one place.
 
-## Installation
+### Installation
 
 Clone this project:
 ```bash
@@ -14,12 +14,17 @@ Install packages
 $ npm install
 ```
 
-Create a .env file in the project root directory and copy the following into it
+### DB set up:
+Create a .env file in the project root directory and copy the following into it...
 ```bash
 DATABASE_URL="file:./dev.db"
 ```
+... then run
+```bash
+$ npx prisma migrate deploy
+```
 
-## Running the app
+### Running the app
 Make it run in localhost
 ```bash
 $ npm run dev
