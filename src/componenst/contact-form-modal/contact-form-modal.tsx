@@ -6,7 +6,6 @@ import ProfilePic from '@/componenst/profile-pic/profile-pic';
 import { useForm } from '@/hooks/form.hook';
 import { useState } from 'react';
 import * as React from 'react';
-import { s3Upload } from '@/libs/s3';
 import { emailValidator, requiredValidator } from '@/libs/validators';
 
 export interface ContactInterface {
@@ -26,6 +25,7 @@ export interface ContactFormProps {
 }
 
 export default function ContactFormModal({ type, isOpen, setOpen, contact, handleSubmit }: ContactFormProps) {
+    const [uploadUrl, setUploadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
     const { inputHandler, payload, isFormValid, fields } = useForm<ContactInterface>({
@@ -50,23 +50,27 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
         isFormValid: false,
     });
 
-    const uploadImage = async (event) => {
-        event.preventDefault();
-        const files: FileList = event.target.files;
-        const file = files[0];
-        const fileName = files[0].name;
+    const uploadImage = async (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        console.log(file);
+        const formData = new FormData();
+        formData.append('file', file);
 
         try {
-            setIsImageLoading(true);
-
-            const result = await s3Upload(file, fileName);
-            console.log('result', result);
-        } catch (e: any) {
-            console.log('upload error', e);
-        } finally {
-            setIsImageLoading(false);
+            const response = await fetch('/api/images', {
+                method: 'POST',
+                body: formData,
+            });
+            console.log('uploaded');
+            const data = await response.json();
+            setUploadUrl(data.url);
+            console.log('data', data);
+        } catch (error) {
+            console.error('Error uploading file:', error);
         }
     }
+
 
     const submit = async () => {
         if (!isFormValid) {
