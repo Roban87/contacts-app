@@ -4,7 +4,7 @@ import { Input } from '@/componenst/input/input';
 import Modal from '@/componenst/modal/modal';
 import { useForm } from '@/hooks/form.hook';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as React from 'react';
 import { emailValidator, requiredValidator } from '@/libs/validators';
 
@@ -24,8 +24,7 @@ export interface ContactFormProps {
 }
 
 export default function ContactFormModal({ type, isOpen, setOpen, contact, handleSubmit }: ContactFormProps) {
-    const [path, setPath] = useState<string>('');
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [path, setPath] = useState<string>(contact?.image ? `/images/${contact?.image}` : '');
     const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
     const { inputHandler, payload, isFormValid, fields } = useForm<ContactInterface>({
         fields: {
@@ -49,6 +48,10 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
         isFormValid: false,
     });
 
+    useEffect(() => {
+        contact?.image ? `/images/${contact?.image}` : ''
+    }, []);
+
     const uploadImage = async (e: any) => {
         e.preventDefault();
         const file = e.target.files[0];
@@ -69,6 +72,18 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
         }
     }
 
+    const clearForm = () => {
+        for (const field of Object.keys(fields)) {
+            inputHandler({
+                inputKey: field,
+                value: '',
+                isValid: field !== 'name'
+            })
+        }
+        setPath('');
+        setOpen(false)
+    }
+
     const submit = async () => {
         if (!isFormValid) {
             return null;
@@ -82,19 +97,8 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
             await handleSubmit(payload, contact.id);
         }
 
+        clearForm();
         setOpen(false);
-    }
-
-    const clearForm = () => {
-        for (const field of Object.keys(fields)) {
-            inputHandler({
-                inputKey: field,
-                value: '',
-                isValid: field !== 'name'
-            })
-        }
-        setPath('');
-        setOpen(false)
     }
 
     return <Modal
