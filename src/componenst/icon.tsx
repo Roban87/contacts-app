@@ -8,8 +8,8 @@ export interface IconProps {
 }
 
 export function Icon({ icon, size, wrapperClasses, wrapperStyles }: IconProps) {
-    return <div className={wrapperClasses} style={wrapperStyles}>
-        <span
+    return <div className={wrapperClasses} style={{ ...wrapperStyles, width: size, height: size }}>
+        <i
             className={`contact-app-icon ${icon} size-${size}`}
         />
     </div>;

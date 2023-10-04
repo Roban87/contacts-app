@@ -1,11 +1,62 @@
 import { Button } from '@/componenst/button/button';
+import ContactFormModal, { ContactInterface } from '@/componenst/contact-form-modal/contact-form-modal';
 import ContactListItem from '@/componenst/contact-list-item/contact-list-item';
 import { Icon } from '@/componenst/icon';
+import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import profile_pic from '../../public/assets/images/profile_pic.png';
 
 export default function Home() {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [contacts, setContacts] = useState<any>([]);
+
+    const fetchContacts = async () => {
+        try {
+            const result = await axios('/api/contacts');
+            setContacts(result?.data);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    useEffect(() => {
+        (async () => await fetchContacts())();
+    }, []);
+
+    const handleDelete = async (id: number) => {
+        try {
+            await axios.delete(`/api/contacts/${id}`);
+            await fetchContacts();
+        } catch (e: any) {
+            console.log(e);
+        }
+    };
+
+    const handleSubmit = async (payload: ContactInterface) => {
+        try {
+            await axios.post('/api/contacts', {
+                ...payload,
+            });
+            await fetchContacts();
+        } catch (e: any) {
+            console.log(e);
+        }
+    };
+
+    const handleUpdate = async (payload: ContactInterface, id: string) => {
+        try {
+            await axios.patch(`/api/contacts/${id}`, {
+                ...payload,
+            });
+            await fetchContacts();
+        } catch (e: any) {
+            console.log(e);
+        }
+    };
+
     return (
         <>
             <Head>
@@ -14,58 +65,76 @@ export default function Home() {
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <main className={`home-screen`}>
+            <main className={'home-screen'}>
+                <ContactFormModal
+                    type={'create'}
+                    isOpen={isModalOpen}
+                    setOpen={setIsModalOpen}
+                    handleSubmit={handleSubmit}
+                />
+
                 <div className={'header-spacer'}/>
 
                 <div className={'header display-flex justify-content-center'}>
                     <div className={'row align-items-center'}>
-                        <Icon
-                            icon={'back-arrow'}
-                            size={24}
-                            wrapperClasses={'p-2 mr-6'}
+                        <Button
+                            type={'secondary'}
+                            icon={<Icon icon={'back-arrow'} size={24}/>}
+                            className={'mr-6'}
                         />
 
                         <div className={'content-wrapper display-flex align-items-center justify-content-between'}>
                             <h1>Contacts</h1>
-                            <div className={'display-flex'}>
-                                <Icon
-                                    icon={'settings'}
-                                    size={24}
-                                    wrapperClasses={'p-2 mr-2'}
-                                />
 
-                                <div className={'p-2 mr-6'}>
-                                    <Image
-                                        src={profile_pic}
-                                        width={24} height={24}
-                                    />
-                                </div>
-
+                            <div className={'display-flex align-items-center'}>
                                 <Button
                                     icon={<Icon
-                                        icon={'add'}
+                                        icon={'settings'}
                                         size={24}
-                                        wrapperClasses={'mr-2'}
                                     />}
+                                    className={'mr-2'}
+                                    type={'secondary'}
+                                />
 
+                                <Button
+                                    icon={<Image
+                                        src={profile_pic}
+                                        width={24} height={24}
+                                        alt={'profile image'}
+                                    />}
+                                    className={'mr-6'}
+                                    type={'secondary'}
+                                />
+
+                                <Button
+                                    icon={<Icon icon={'add'} size={24} wrapperClasses={'mr-2'}/>}
                                     type={'special'}
                                     title={'Add new'}
-                                    onClick={() => console.log('new has been added')}
+                                    onClick={() => setIsModalOpen(true)}
                                 />
                             </div>
                         </div>
 
-                        <Icon
-                            icon={'light-mode'}
-                            size={24}
-                            wrapperClasses={'p-2 ml-6'}
+                        <Button
+                            type={'secondary'}
+                            icon={<Icon icon={'light-mode'} size={24}/>}
+                            className={'ml-6'}
                         />
                     </div>
                 </div>
 
                 <div className={'display-flex justify-content-center'}>
                     <div className={'content-wrapper'}>
-                        <ContactListItem name={'me'} phone={'+ 36 30 123 4567'}/>
+                        {
+                            contacts.map((contact) => {
+                                return <ContactListItem
+                                    key={contact.id}
+                                    contact={contact}
+                                    handleDelete={handleDelete}
+                                    handleUpdate={handleUpdate}
+                                />;
+                            })
+                        }
                     </div>
                 </div>
             </main>

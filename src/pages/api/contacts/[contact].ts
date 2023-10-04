@@ -16,7 +16,6 @@ async function updateContact(request: NextApiRequest, res: NextApiResponse): Pro
     const req = request as any;
     const prisma = new PrismaClient();
 
-    console.log('update');
     try {
         const data = req.body;
 
@@ -26,18 +25,17 @@ async function updateContact(request: NextApiRequest, res: NextApiResponse): Pro
 
         const result = await prisma.contact.update({
             where: {
-                id: req.query.contact,
+                id: parseInt(req.query.contact),
             },
             data: {
                 name: data.name,
-                phone: !data.phone ? data.phone : null,
-                email: !data.email ? data.email : null,
-                image: !data.image ? `/api/images/${data.image}` : null,
+                phone: !!data.phone ? data.phone : null,
+                email: !!data.email ? data.email : null,
+                image: !!data.image ? `/api/images/${data.image}` : null,
             }
         });
 
-        console.log(JSON.stringify(result, null, 4));
-        return (res as any).status(200).json({ result });
+        return (res as any).status(200).json(result);
     } catch (e: any) {
         return (res as any).status(500).json({ message: e.message });
     } finally {
@@ -49,15 +47,13 @@ async function deleteContact(request: NextApiRequest, res: NextApiResponse): Pro
     const req = request as any;
     const prisma = new PrismaClient();
 
-    console.log('delete');
     try {
         const result = await prisma.contact.delete({
             where: {
-                id: req.query.contact,
+                id: parseInt(req.query.contact),
             }
         });
-        console.log(JSON.stringify(result, null, 4));
-        return (res as any).status(200).json({ result });
+        return (res as any).status(200).json(result);
     } catch (e: any) {
         console.log(e);
     } finally {

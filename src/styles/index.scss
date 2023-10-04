@@ -7,15 +7,17 @@
 @import './generators/grid';
 @import './generators/color';
 @import './generators/helpers';
-@import './generators/helpers';
 
 // MISC
 @import '../../public/fonts/icon-set/contact-app-icon-set';
 
 // COMPONENTS
 @import './components/button';
+@import './components/input';
 @import './components/profile-pic';
 @import './components/contact-list-item';
+@import './components/modal';
+@import './components/dropdown';
 
 // PAGES
 @import 'home.page';

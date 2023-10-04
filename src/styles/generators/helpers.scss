@@ -3,7 +3,7 @@
 @mixin generate-helper($config) {
     $breakpoints: map-get-deep($config, 'breakpoints');
     $spacers: map-get-deep($config, 'spacers');
-    $displays: none, inline, inherit, inline-block, block, table, table-row, table-cell, flex, inline-flex;
+    $displays: none, inline, inherit, inline-block, block, table, table-row, table-cell, flex, inline-flex, hidden;
     $positions: relative, absolute, fixed, static;
     $overflows: hidden, auto, visible, scroll;
 

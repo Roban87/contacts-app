@@ -1,10 +1,15 @@
 .contact-list-item {
+    .data-container {
+        height: 40px;
+    }
+
     .contact-control {
         display: none;
     }
 
     &:hover {
         .contact-control {
+            height: 40px;
             display: flex;
         }
     }

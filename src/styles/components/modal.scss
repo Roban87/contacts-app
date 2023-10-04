@@ -1,0 +1,47 @@
+@import "../variables";
+
+.modal {
+    .modal-trigger {
+
+    }
+}
+
+body:has(> .modal-content-wrapper) {
+    overflow: hidden;
+}
+
+.modal-content-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    z-index: 99;
+    overflow-y: auto;
+
+    .modal-content {
+        z-index: 9;
+        background-color: #141414;
+        border-radius: 8px;
+        height: max-content;
+        padding: 24px;
+
+        .modal-loading {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}

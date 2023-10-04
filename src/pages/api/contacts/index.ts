@@ -17,7 +17,7 @@ async function listContacts(request: NextApiRequest, res: NextApiResponse): Prom
 
     try {
         const result = await prisma.contact.findMany();
-        return (res as any).status(200).json({ result });
+        return (res as any).status(200).json(result);
     } catch (e: any) {
         return (res as any).status(500).json({ message: e.message });
     } finally {
@@ -30,7 +30,6 @@ async function createContact(request: NextApiRequest, res: NextApiResponse): Pro
     const req = request as any;
     const prisma = new PrismaClient();
 
-    console.log('create');
     try {
         const data = req.body;
 
@@ -41,14 +40,13 @@ async function createContact(request: NextApiRequest, res: NextApiResponse): Pro
         const result = await prisma.contact.create({
             data: {
                 name: data.name,
-                phone: !data.phone ? data.phone : null,
-                email: !data.email ? data.email : null,
-                image: !data.image ? `/api/images/${data.image}` : null,
+                phone: !!data.phone ? data.phone : null,
+                email: !!data.email ? data.email : null,
+                image: !!data.image ? `/api/images/${data.image}` : null,
             }
         });
 
-        console.log(JSON.stringify(result, null, 4));
-        return (res as any).status(200).json({ result });
+        return (res as any).status(200).json(result);
     } catch (e: any) {
         return (res as any).status(500).json({ message: e.message });
     } finally {

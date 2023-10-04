@@ -64,12 +64,13 @@ p {
   letter-spacing: 0.14px;
 }
 
-small {
+small, label {
   font-family: 'LexendDeca', sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
+  min-height: 16px;
   letter-spacing: 0.12px;
   color: rgba(255, 255, 255, 0.56);
 }
