@@ -50,7 +50,7 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
 
     useEffect(() => {
         contact?.image ? `/images/${contact?.image}` : ''
-    }, []);
+    }, [contact?.image]);
 
     const uploadImage = async (e: any) => {
         e.preventDefault();
@@ -91,13 +91,13 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
 
         if (type === 'create') {
             await handleSubmit(payload)
+            clearForm();
         }
 
         if (type === 'edit') {
             await handleSubmit(payload, contact.id);
         }
 
-        clearForm();
         setOpen(false);
     }
 
