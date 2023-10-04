@@ -19,7 +19,7 @@ export default function ContactListItem({ contact, handleDelete, handleUpdate }:
 
         <div className={'contact-info display-flex align-items-center'}>
             <ProfilePic
-                imageSrc={contact.imageSrc || ''}
+                imageSrc={contact.image ? `/images/${contact.image}` : ''}
                 size={40}
                 className={'mr-4'}
             />
@@ -42,13 +42,11 @@ export default function ContactListItem({ contact, handleDelete, handleUpdate }:
             <Button
                 icon={<Icon icon={'mute'} size={24}/>}
                 type={'secondary'}
-                onClick={() => console.log('')}
             />
 
             <Button
                 icon={<Icon icon={'call'} size={24}/>}
                 type={'secondary'}
-                onClick={() => console.log('')}
             />
 
             <Dropdown
@@ -83,3 +81,4 @@ export default function ContactListItem({ contact, handleDelete, handleUpdate }:
         </div>
     </div>;
 }
+

@@ -42,7 +42,7 @@ async function createContact(request: NextApiRequest, res: NextApiResponse): Pro
                 name: data.name,
                 phone: !!data.phone ? data.phone : null,
                 email: !!data.email ? data.email : null,
-                image: !!data.image ? `/api/images/${data.image}` : null,
+                image: !!data.image ? data.image : null,
             }
         });
 

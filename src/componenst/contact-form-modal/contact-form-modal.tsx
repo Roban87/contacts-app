@@ -1,9 +1,9 @@
 import { Button } from '@/componenst/button/button';
-import { Icon } from '@/componenst/icon';
+import ImageUploader from '@/componenst/image-uploader/image-uploader';
 import { Input } from '@/componenst/input/input';
 import Modal from '@/componenst/modal/modal';
-import ProfilePic from '@/componenst/profile-pic/profile-pic';
 import { useForm } from '@/hooks/form.hook';
+import axios from 'axios';
 import { useState } from 'react';
 import * as React from 'react';
 import { emailValidator, requiredValidator } from '@/libs/validators';
@@ -24,7 +24,7 @@ export interface ContactFormProps {
 }
 
 export default function ContactFormModal({ type, isOpen, setOpen, contact, handleSubmit }: ContactFormProps) {
-    const [uploadUrl, setUploadUrl] = useState(null);
+    const [path, setPath] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
     const { inputHandler, payload, isFormValid, fields } = useForm<ContactInterface>({
@@ -52,21 +52,20 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
     const uploadImage = async (e: any) => {
         e.preventDefault();
         const file = e.target.files[0];
-        console.log(file);
+
         const formData = new FormData();
         formData.append('file', file);
 
         try {
-            const response = await fetch('/api/images', {
-                method: 'POST',
-                body: formData,
-            });
-            console.log('uploaded');
-            const data = await response.json();
-            setUploadUrl(data.url);
-            console.log('data', data);
+            setIsImageLoading(true);
+            const response = await axios.post('/api/images/upload', formData);
+
+            inputHandler({ inputKey: 'image', value: response.data.newFilename, isValid: true });
+            setPath(`/images/${response.data.newFilename}`)
         } catch (error) {
             console.error('Error uploading file:', error);
+        } finally {
+            setIsImageLoading(false);
         }
     }
 
@@ -86,6 +85,18 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
         setOpen(false);
     }
 
+    const clearForm = () => {
+        for (const field of Object.keys(fields)) {
+            inputHandler({
+                inputKey: field,
+                value: '',
+                isValid: field !== 'name'
+            })
+        }
+        setPath('');
+        setOpen(false)
+    }
+
     return <Modal
         toggleModal={() => setOpen(!isOpen)}
         isOpen={isOpen}
@@ -96,32 +107,11 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
             </div>
 
             <div className={'display-flex flex-column'}>
-                <div className={'display-flex align-items-center mb-6'}>
-                    <ProfilePic
-                        className={'mr-4'}
-                        size={88}
-                        imageSrc={fields.image.value}
-                    />
-
-                    <div className={'uploader button primary with-icon mr-2'}>
-                        <input className={'uploader-input'}
-                               type={'file'}
-                               accept={'image/*'}
-                               onChange={(event) => uploadImage(event)}
-                               multiple={false}
-                        />
-                        <div className={'display-flex justify-content-center align-items-center'}>
-                            <Icon icon={'change'} size={24} wrapperClasses={'mr-2'}/>
-                            <p>Change picture</p>
-                        </div>
-                    </div>
-
-                    <Button
-                        type={'primary'}
-                        icon={<Icon icon={'delete'} size={24}/>}
-                        onClick={() => inputHandler({ inputKey: 'image', value: '', isValid: true })}
-                    />
-                </div>
+                <ImageUploader
+                    path={path}
+                    uploadImage={uploadImage}
+                    inputHandler={inputHandler}
+                />
 
                 <div className={'mb-6'}>
                     <Input
@@ -165,7 +155,7 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
                     type={'secondary'}
                     title={'Cancel'}
                     className={'mr-2'}
-                    onClick={() => setOpen(false)}
+                    onClick={() => clearForm()}
                 />
 
                 <Button
