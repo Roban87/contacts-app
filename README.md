@@ -14,8 +14,13 @@ Install packages
 $ npm install
 ```
 
+Create a .env file in the project root directory and copy the following into it
+```bash
+DATABASE_URL="file:./dev.db"
+```
+
 ## Running the app
-Make it run in your browser
+Make it run in localhost
 ```bash
 $ npm run dev
 ```
