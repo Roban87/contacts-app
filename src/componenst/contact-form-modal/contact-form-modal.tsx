@@ -19,7 +19,7 @@ export interface ContactInterface {
 export interface ContactFormProps {
     type: 'create' | 'edit';
     isOpen: boolean;
-    setOpen: (boolean) => void;
+    setOpen: (b: boolean) => void;
     contact?: any;
     handleSubmit: (data: ContactInterface | null, id?: string, ) => Promise<void>;
 }
