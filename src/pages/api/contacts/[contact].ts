@@ -55,7 +55,7 @@ async function deleteContact(request: NextApiRequest, res: NextApiResponse): Pro
         });
         return (res as any).status(200).json(result);
     } catch (e: any) {
-        console.log(e);
+        return (res as any).status(500).json({ message: e.message });
     } finally {
         await prisma.$disconnect();
     }

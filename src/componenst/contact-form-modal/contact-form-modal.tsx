@@ -9,7 +9,6 @@ import * as React from 'react';
 import { emailValidator, requiredValidator } from '@/libs/validators';
 
 export interface ContactInterface {
-    id?: string;
     image: string,
     name: string,
     phone: string,
@@ -21,7 +20,7 @@ export interface ContactFormProps {
     isOpen: boolean;
     setOpen: (b: boolean) => void;
     contact?: any;
-    handleSubmit: (data: ContactInterface | null, id?: string, ) => Promise<void>;
+    handleSubmit: (data: ContactInterface | null, id?: string) => Promise<void>;
 }
 
 export default function ContactFormModal({ type, isOpen, setOpen, contact, handleSubmit }: ContactFormProps) {
@@ -50,7 +49,7 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
         isFormValid: false,
     });
 
-    const uploadImage = async (e) => {
+    const uploadImage = async (e: any) => {
         e.preventDefault();
         const file = e.target.files[0];
         console.log(file);
@@ -70,7 +69,6 @@ export default function ContactFormModal({ type, isOpen, setOpen, contact, handl
             console.error('Error uploading file:', error);
         }
     }
-
 
     const submit = async () => {
         if (!isFormValid) {

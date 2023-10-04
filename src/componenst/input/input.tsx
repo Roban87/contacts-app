@@ -1,5 +1,4 @@
-import { Eyeicon } from '@/components/inputs/eye-icon';
-import { InputHandlerOptions, InputValue } from '@/libs/hooks/form.hook';
+import { InputHandlerOptions, InputValue } from '@/hooks/form.hook';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { InputWrapper } from './input-wrapper';
 import React from 'react';

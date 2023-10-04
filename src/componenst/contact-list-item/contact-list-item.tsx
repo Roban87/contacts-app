@@ -8,8 +8,8 @@ import * as React from 'react';
 
 export interface ContactListItemProps {
     contact: any;
-    handleDelete: (i) => void;
-    handleUpdate: (data: ContactInterface | null, id: string, ) => Promise<void>;
+    handleDelete: (i: number) => void;
+    handleUpdate: (data: ContactInterface | null, id?: string) => Promise<void>;
 }
 
 export default function ContactListItem({ contact, handleDelete, handleUpdate }: ContactListItemProps) {

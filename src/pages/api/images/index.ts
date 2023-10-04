@@ -1,3 +1,4 @@
+/*
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { createRequestPresigner } from '@aws-sdk/s3-request-presigner';
 import multer from 'multer';
@@ -51,3 +52,4 @@ export default router.handler({
         (res as any).status(err.statusCode || 500).end(err.message);
     },
 });
+*/

@@ -1,4 +1,3 @@
-import { Children } from '@/libs/interfaces';
 import React from 'react';
 
 interface NormalWrapperProps {
@@ -6,7 +5,7 @@ interface NormalWrapperProps {
     errorMessage: string;
     label?: string | undefined;
     name: string;
-    children: Children;
+    children: any;
     isInFocus: boolean;
     disabled?: boolean;
 }

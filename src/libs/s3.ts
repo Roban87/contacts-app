@@ -16,7 +16,7 @@ const awsSecretAccessKey = process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY;
 
 const upload = multer({ storage });*/
 
-const s3Client = new S3Client({
+/*const s3Client = new S3Client({
     region: bucketRegion,
     credentials: {
         accessKeyId: awsAccessKey,
@@ -49,3 +49,4 @@ export async function s3Download(fileKey) {
 
     return s3Client.send(downloadParams).createReadStream();
 }
+*/

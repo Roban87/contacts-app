@@ -35,7 +35,7 @@ export default function Home() {
         }
     };
 
-    const handleSubmit = async (payload: ContactInterface) => {
+    const handleSubmit = async (payload: ContactInterface | null) => {
         try {
             await axios.post('/api/contacts', {
                 ...payload,
@@ -46,7 +46,7 @@ export default function Home() {
         }
     };
 
-    const handleUpdate = async (payload: ContactInterface, id: string) => {
+    const handleUpdate = async (payload: ContactInterface | null, id: string | undefined) => {
         try {
             await axios.patch(`/api/contacts/${id}`, {
                 ...payload,
@@ -126,7 +126,7 @@ export default function Home() {
                 <div className={'contents display-flex justify-content-center'}>
                     <div className={'content-wrapper'}>
                         {
-                            contacts.map((contact) => {
+                            contacts.map((contact: any) => {
                                 return <ContactListItem
                                     key={contact.id}
                                     contact={contact}
