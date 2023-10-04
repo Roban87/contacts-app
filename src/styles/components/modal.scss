@@ -30,6 +30,7 @@ body:has(> .modal-content-wrapper) {
         border-radius: 8px;
         height: max-content;
         padding: 24px;
+        max-width: 480px;
 
         .modal-loading {
             position: absolute;

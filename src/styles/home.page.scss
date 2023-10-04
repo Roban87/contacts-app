@@ -1,21 +1,63 @@
+@import './generators/helpers';
+
 .home-screen {
-    min-height: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 
     .header-spacer {
         height: 96px;
+
+        @media (max-width: 575px) {
+            height: 48px;
+        }
     }
 
     .header {
         height: 96px;
 
         .row {
-            height: 96px;
+            height: 152px;
         }
+
+        @media (max-width: 575px) {
+            height: 192px;
+
+            .header-item:nth-child(1) {
+                order: 1;
+            }
+            .header-item:nth-child(2) {
+                order: 3;
+                flex-direction: column;
+
+                h1 {
+                    margin-bottom: 16px;
+                }
+            }
+            .header-item:nth-child(3) {
+                order: 2;
+            }
+        }
+    }
+
+    .contents {
+        flex: 1 1 auto;
+        overflow: unset;
     }
 
     .content-wrapper {
         padding: 0 24px;
         width: 768px;
         max-width: 768px;
+
+        @media (max-width: 992px) {
+            width: 75vw;
+            max-width: 75vw;
+        }
+
+        @media (max-width: 575px) {
+            width: 95vw;
+            max-width: 95vw;
+        }
     }
 }

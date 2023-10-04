@@ -1,6 +1,7 @@
 .contact-list-item {
     .data-container {
-        height: 40px;
+        min-height: 40px;
+        overflow-wrap: break-word;
     }
 
     .contact-control {
@@ -8,6 +9,14 @@
     }
 
     &:hover {
+        .contact-control {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    @media (pointer: coarse) {
         .contact-control {
             height: 40px;
             display: flex;

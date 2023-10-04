@@ -60,7 +60,7 @@ function Content({ modalId, modalContent, toggleModal, className, col }: Content
         <div modal-content-id={modalId}
              onClick={() => toggleModal()}
              className={`modal-content-wrapper row ${!!className ? className : ''}`}>
-            <div className={`modal-content p-4 col-md-${col?.md || 12} col-lg-${col?.lg || 10} col-${col?.xs || 24}`}
+            <div className={`modal-content p-4 col-md-${col?.md || 12} col-lg-${col?.lg || 10} col-${col?.xs || 22}`}
                  onClick={(e) => e.stopPropagation()}>
 
                 <div className="modal-content-body">

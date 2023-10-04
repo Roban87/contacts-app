@@ -73,17 +73,17 @@ export default function Home() {
                     handleSubmit={handleSubmit}
                 />
 
-                <div className={'header-spacer'}/>
+                <div className={'header-spacer'} />
 
                 <div className={'header display-flex justify-content-center'}>
-                    <div className={'row align-items-center'}>
+                    <div className={'row justify-content-center align-items-center'}>
                         <Button
                             type={'secondary'}
                             icon={<Icon icon={'back-arrow'} size={24}/>}
-                            className={'mr-6'}
+                            className={'header-item mr-auto ml-6 ml-sm-0 mr-sm-6'}
                         />
 
-                        <div className={'content-wrapper display-flex align-items-center justify-content-between'}>
+                        <div className={'header-item content-wrapper display-flex align-items-center justify-content-between'}>
                             <h1>Contacts</h1>
 
                             <div className={'display-flex align-items-center'}>
@@ -118,12 +118,12 @@ export default function Home() {
                         <Button
                             type={'secondary'}
                             icon={<Icon icon={'light-mode'} size={24}/>}
-                            className={'ml-6'}
+                            className={'header-item ml-auto mr-6 mr-sm-0 ml-sm-6'}
                         />
                     </div>
                 </div>
 
-                <div className={'display-flex justify-content-center'}>
+                <div className={'contents display-flex justify-content-center'}>
                     <div className={'content-wrapper'}>
                         {
                             contacts.map((contact) => {
